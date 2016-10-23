@@ -47,7 +47,7 @@ task1.factory('UserLocation', function ($rootScope, $q) {
 });
 task1.factory('UserLocationWeather', function ($rootScope, $q, $http) {
 	var UserLocationWeather = function (args) {
-		this.url 			= 'https://api.openweathermap.org/data/2.5/weather?APPID=5d22007685e8c39cb206c578b7d14d99&units=metric';
+		this.url 			= 'http://api.openweathermap.org/data/2.5/weather?APPID=5d22007685e8c39cb206c578b7d14d99&units=metric';
 		
 		this.get = function(args) {
 			var deferred = $q.defer();
