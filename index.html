@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="task1">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather App</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="assets/styles/css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+	<div ng-controller="HomeCtrl" ng-cloak>
+		<div class="container">
+			<div class="row" ng-if="weather">
+				<div class="col-md-offset-3 col-md-3 text-center">
+					<p class="no-margin text-left">{{weather.weather[0].description}}</p>
+					<h1 class="no-margin"><i class="{{ getIcon(weather.weather[0].icon) ? getIcon(weather.weather[0].icon) : 'wi-night-cloudy'}} weather-icon" style="font-size: 160px"></i></h1>
+				</div>
+				<div class="col-md-3 text-center">
+					<h1 class="no-margin" style="font-size: 90px;"> {{Math.round(weather.main.temp)}} <i class="wi-degrees"></i>C</h1>
+					
+					<h3 style="margin-top: 0">Min {{Math.round(weather.main.temp_min)}} <i class="wi-degrees"></i>C | Max {{Math.round(weather.main.temp_max)}} <i class="wi-degrees"></i>C</h3>
+					<h1>{{weather.name}}, {{weather.sys.country}}</h1>		
+				</div>
+			</div>
+			<div class="row" ng-if="weather">
+				<div class="col-md-offset-2 col-md-8">
+					<hr>
+				</div>
+			</div>
+			<div class="row" ng-if="weather">
+				<div class="col-md-offset-3 col-md-5">
+					<h3><i class="fa fa-fw wi-strong-wind"></i> Wind Speed {{weather.wind.speed}} meter/sec</h3>
+					<h3><i class="fa fa-fw wi-cloudy"></i> Clouds: {{weather.clouds.all}} %</h3>
+					<h3><i class="fa wi-thermometer-internal
+	 fa-fw"></i>  Humidity: 84 %</h3>
+					<h3><i class="fa fa-fw wi-sunrise"></i> Sunrise: {{toDate(weather.sys.sunrise) | date:'medium'}}</h3>
+					<h3><i class="fa fa-fw wi-sunset"></i> Sunset: {{toDate(weather.sys.sunset) | date:'medium'}}</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6" ng-if="showForm">
+					<div class="alert alert-danger" ng-if="showError">{{showError}}</div>
+					<form>
+						<div class="panel panel-default">
+							<div class="panel-heading">Enter your location</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label>Your Country</label>
+									<select class="form-control" ng-model="country" required>
+										<option ng-repeat="country in countries" value="{{country.alpha2}}">{{country.name}}</option>
+									</select>
+								</div>
+								<div class="form-group">
+								    <label>Postcode</label>
+								    <input type="text" class="form-control" ng-model="zip" required>
+								</div>
+							    <p class="help-block">There are countries which share postcodes. It is advisable to enter both Country and Postcode
+							    to get the desired results</p>
+
+								<button type="submit" ng-if="!disabled" class="btn btn-default" ng-click="setLocation(country,zip);">Go</button>
+
+								<button type="submit" ng-if="disabled" class="btn btn-default" disabled="">Getting Data....</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+</html>
